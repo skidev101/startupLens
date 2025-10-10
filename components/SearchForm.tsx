@@ -1,5 +1,6 @@
 import Form from "next/form";
 import SearchFormReset from "./SearchFormReset";
+import { Search } from "lucide-react"
 
 const SearchForm = ({ query }: { query? : string}) => {
 
@@ -19,7 +20,7 @@ const SearchForm = ({ query }: { query? : string}) => {
           type="submit"
           className="search-btn text-white hover:cursor-pointer"
         >
-          S
+          <Search className="size-5"/>
         </button>
       </div>
     </Form>
