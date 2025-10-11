@@ -3,27 +3,31 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "dev": "next dev",
+    "dev:site": "next dev",
+    "dev:studio": "sanity dev",
+    "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint ."
   },
-  "packageManager": "npm@11.6.1",
-  "overrides": {
-    "react": "$react",
-    "react-dom": "$react-dom",
-    "next": "$next"
-  },
+  "packageManager": "pnpm@9.12.1",
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
+    "@sanity/image-url": "1",
+    "@sanity/vision": "4",
     "@tailwindcss/typography": "^0.5.19",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "easymde": "^2.20.0",
     "lucide-react": "^0.545.0",
     "next": "15.5.4",
     "next-auth": "^5.0.0-beta.29",
+    "next-sanity": "11.4.2",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "sanity": "4",
+    "sanity-plugin-markdown": "^6.0.0",
+    "styled-components": "^6.1.15",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7"
   },
@@ -33,6 +37,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.21",
     "eslint": "^9",
     "eslint-config-next": "15.5.4",
     "shadcn": "^3.4.0",
