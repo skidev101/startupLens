@@ -8,7 +8,8 @@
     "dev:studio": "sanity dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "next lint",
+    "typegen": "sanity schema extract --path=./sanity/extract.json && sanity typegen generate"
   },
   "packageManager": "pnpm@9.12.1",
   "dependencies": {
@@ -27,6 +28,7 @@
     "react-dom": "19.1.0",
     "sanity": "4",
     "sanity-plugin-markdown": "^6.0.0",
+    "server-only": "^0.0.1",
     "styled-components": "^6.1.15",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7"
