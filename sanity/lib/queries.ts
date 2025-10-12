@@ -16,7 +16,7 @@ export const STARTUPS_QUERY =
 }`);
 
 export const STARTUPS_BY_ID_QUERY =
-  defineQuery(`*[_type == "startup" && _id == $id[0]{
+  defineQuery(`*[_type == "startup" && _id == $id[0]]{
   _id,
   author -> {
     _id, username, email, image, bio
@@ -30,3 +30,21 @@ export const STARTUPS_BY_ID_QUERY =
   _createdAt,
   pitch
 }`);
+
+export const STARTUPS_VIEWS_QUERY =
+  defineQuery(`*[_type == "startup" && _id == $id[0]]{
+  _id,
+  views
+}`);
+
+export const AUTHOR_BY_GITHUB_ID = defineQuery(`
+  *[_type == "author" && id == $id[0]]{
+    _id,
+    id,
+    name,
+    username,
+    email,
+    image,
+    bio
+  }
+`);
