@@ -15,17 +15,29 @@ const md = markdownit();
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
+  console.log("post id", id)
 
-  const post = await client.fetch(STARTUPS_BY_ID_QUERY, { id });
-  console.log("post:", post);
+  // const post = await client.fetch(STARTUPS_BY_ID_QUERY, { id });
+  // console.log("post:", post);
 
-  if (!post) return notFound();
+  // if (!post) return notFound();
 
-  const parsedContent = md.render(post?.pitch || "");
+  const post = {
+    _id: "1",
+    _createdAt: "12-10-2025",
+    views: "42",
+    author: "monaski",
+    title: "startupLens",
+    category: "tech",
+    description: "a really cool stuff",
+    image: "/logo.png"
+  };
+
+  // const parsedContent = md.render(post?.pitch || "");
   
   return (
     <>
-      <section className="pink_container !min-h-[230px]">
+      <section className="blue_container !min-h-[230px]">
         <p className="tag">{formatDate(post?._createdAt)}</p>
 
         <h1 className="heading">{post.title}</h1>
@@ -36,7 +48,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
         <img
           src={post.image}
           alt="startup image"
-          className="w-full h-auto rounded-xl"
+          className="w-full h-auto lg:max-h-[300px] rounded-xl object-cover"
         />
 
         <div className="space-y-5 mt-10 max-w-4xl mx-auto">
@@ -46,9 +58,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
               className="flex gap-2 items-center mb-3"
             >
               <Image
-                src={post.author.image || 
-                  '/logo.png'
-                }
+                src={post.author?.image}
                 alt="avatar"
                 width={64}
                 height={64}
@@ -56,23 +66,23 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
               />
 
               <div>
-                <p className="text-20-medium">{post.author.name}</p>
-                <p className="text-16-medium !text-black-300">@{post.author.username}</p>
+                <p className="text-20-medium">{post.author?.username}</p>
+                <p className="text-16-medium !text-black-300">@{post.author?.username}</p>
               </div>
-            </Link>
+            </Link> 
 
             <p className="category-tag">{post.category}</p>
           </div>
 
           <h3 className="text-30-bold">Pitch Details</h3>
-          {parsedContent ? (
+          {/* {parsedContent ? (
             <article
               dangerouslySetInnerHTML={{ __html: parsedContent}}
               className="prose max-w-4xl font-work-sans break-all"
              />
           ) : (
             <p className="no-result">No details provided</p>
-          )}
+          )} */}
 
         </div>
 
@@ -80,9 +90,9 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
       </section>
 
-      <Suspense fallback={<Skeleton className="view_skeleton" />}>
+      {/* <Suspense fallback={<Skeleton className="view_skeleton" />}>
         <View id={id} />
-      </Suspense>
+      </Suspense> */}
     </>
   );
 };

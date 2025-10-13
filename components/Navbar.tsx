@@ -6,7 +6,7 @@ import Link from "next/link";
 const Navbar = async () => {
   const session = await auth();
   console.log("current user session:", session);
-  console.log("current user session id:", session?.user?.id);
+  console.log("current user session id:", session?.id);
 
   return (
     <header className="px-5 py-3 bg-white text-black shadow-sm font-work-sans">

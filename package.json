@@ -11,12 +11,13 @@
     "lint": "next lint",
     "typegen": "sanity schema extract --path=./sanity/extract.json && sanity typegen generate"
   },
-  "packageManager": "pnpm@9.12.1",
+  "packageManager": "pnpm@10.18.2",
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
     "@sanity/image-url": "1",
     "@sanity/vision": "4",
     "@tailwindcss/typography": "^0.5.19",
+    "@uiw/react-md-editor": "^4.0.8",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "easymde": "^2.20.0",
