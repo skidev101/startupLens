@@ -1,11 +1,8 @@
-import { auth } from "@/auth";
 import SearchForm from "@/components/SearchForm";
 import StartupCard, { StartupCardType } from "@/components/StartupCard";
-import { Button } from "@/components/ui/button";
-// import { client } from "@/sanity/lib/client";
+import { client } from "@/sanity/lib/client";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
-import { STARTUPS_QUERY } from "@/sanity/lib/queries";
-import Link from "next/link";
+import { PLAYLIST_BY_SLUG_QUERY, STARTUPS_QUERY } from "@/sanity/lib/queries";
 
 export default async function Home({
   searchParams,
@@ -20,7 +17,15 @@ export default async function Home({
   // const session = await auth();
   // console.log(session?.id);
 
-  const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY, params });
+  const { data: posts } = await sanityFetch({
+    query: STARTUPS_QUERY,
+    params,
+  });
+  const playlists = await client.fetch(PLAYLIST_BY_SLUG_QUERY, {
+    prefix: "editor-picks",
+  });
+
+  const editorPosts = playlists?.select ?? [];
 
   // const posts = [{
   //   _id: "1",
@@ -32,7 +37,6 @@ export default async function Home({
   //   desription: "a really cool stuff",
   //   image: "/logo.png"
   // }]
-
 
   return (
     <>
@@ -53,14 +57,27 @@ export default async function Home({
           {query ? `Search results for "${query}"` : "All Startups"}
         </p>
 
-
         <ul className="mt-7 card_grid">
           {posts?.length > 0 ? (
-            posts.map((post: StartupCardType) => <StartupCard key={post?._id} post={post} />) // add appropriate type(StartupCardType) after local testing
+            posts.map((post: StartupCardType) => (
+              <StartupCard key={post?._id} post={post} />
+            ))
           ) : (
             <p className="no-result">No Startups found</p>
           )}
         </ul>
+
+        {editorPosts?.length > 0 && (
+          <div className="mx-auto mt-7">
+            <p className="text-30-semibold">Editor picks</p>
+
+            <ul className="mt-5 card_grid-sm">
+              {editorPosts.map((post: StartupCardType) => (
+                <StartupCard key={post._id} post={post} />
+              ))}
+            </ul>
+          </div>
+        )}
       </section>
 
       <SanityLive />

@@ -1,7 +1,7 @@
 import { defineQuery } from "next-sanity";
 
 export const STARTUPS_QUERY =
-  defineQuery(`*[_type == "startup" && defined(slug.current) && !defined($search) || title match $search || category match $search || author->username match $search] | order(_createdAt desc){
+    defineQuery(`*[_type == "startup" && defined(slug.current) && !defined($search) || title match $search || category match $search || author->username match $search] | order(_createdAt desc){
   _id,
   author -> {
     _id, username, email, image, bio
@@ -16,7 +16,7 @@ export const STARTUPS_QUERY =
 }`);
 
 export const STARTUPS_BY_ID_QUERY =
-  defineQuery(`*[_type == "startup" && _id == $id][0]{
+    defineQuery(`*[_type == "startup" && _id == $id][0]{
   _id,
   author -> {
     _id, username, email, image, bio
@@ -32,7 +32,7 @@ export const STARTUPS_BY_ID_QUERY =
 }`);
 
 export const STARTUPS_VIEWS_QUERY =
-  defineQuery(`*[_type == "startup" && _id == $id][0]{
+    defineQuery(`*[_type == "startup" && _id == $id][0]{
   _id,
   views
 }`);
@@ -62,7 +62,7 @@ export const AUTHOR_BY_ID_QUERY = defineQuery(`
 `);
 
 export const STARTUPS_BY_AUTHOR_QUERY =
-  defineQuery(`*[_type == "startup" && author._ref == $id] | order(_createdAt desc){
+    defineQuery(`*[_type == "startup" && author._ref == $id] | order(_createdAt desc){
   _id,
   author -> {
     _id, username, email, image, bio
@@ -74,4 +74,29 @@ export const STARTUPS_BY_AUTHOR_QUERY =
   title,
   views,
   _createdAt
+}`);
+
+export const PLAYLIST_BY_SLUG_QUERY =
+    defineQuery(`*[_type == "playlist" && slug.current match $prefix + "*"]{
+  _id,
+  title, 
+  slug,
+  select[] -> {
+    _id,
+    _createdAt,
+    title,
+    slug,
+    author -> {
+      _id, 
+      name,
+      slug,
+      image,
+      bio
+    },
+    category,
+    description,
+    image,
+    views,
+    pitch
+  }
 }`);
