@@ -17,23 +17,23 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
   console.log("post id", id)
 
-  // const post = await client.fetch(STARTUPS_BY_ID_QUERY, { id });
-  // console.log("post:", post);
+  const post = await client.fetch(STARTUPS_BY_ID_QUERY, { id });
+  console.log("post:", post);
 
-  // if (!post) return notFound();
+  if (!post) return notFound();
 
-  const post = {
-    _id: "1",
-    _createdAt: "12-10-2025",
-    views: "42",
-    author: "monaski",
-    title: "startupLens",
-    category: "tech",
-    description: "a really cool stuff",
-    image: "/logo.png"
-  };
+  // const post = {
+  //   _id: "1",
+  //   _createdAt: "12-10-2025",
+  //   views: "42",
+  //   author: "monaski",
+  //   title: "startupLens",
+  //   category: "tech",
+  //   description: "a really cool stuff",
+  //   image: "/logo.png"
+  // };
 
-  // const parsedContent = md.render(post?.pitch || "");
+  const parsedContent = md.render(post?.pitch || "");
   
   return (
     <>
@@ -66,7 +66,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
               />
 
               <div>
-                <p className="text-20-medium">{post.author?.username}</p>
+                <p className="text-20-medium">{post.author?.name}</p>
                 <p className="text-16-medium !text-black-300">@{post.author?.username}</p>
               </div>
             </Link> 
@@ -75,14 +75,14 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
           </div>
 
           <h3 className="text-30-bold">Pitch Details</h3>
-          {/* {parsedContent ? (
+          {parsedContent ? (
             <article
               dangerouslySetInnerHTML={{ __html: parsedContent}}
               className="prose max-w-4xl font-work-sans break-all"
              />
           ) : (
             <p className="no-result">No details provided</p>
-          )} */}
+          )}
 
         </div>
 
@@ -90,9 +90,9 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
       </section>
 
-      {/* <Suspense fallback={<Skeleton className="view_skeleton" />}>
+      <Suspense fallback={<Skeleton className="view_skeleton" />}>
         <View id={id} />
-      </Suspense> */}
+      </Suspense>
     </>
   );
 };

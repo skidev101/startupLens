@@ -2,9 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Ping from "./Ping";
-import { client } from "@/sanity/lib/client";
-import { writeClient } from "@/sanity/lib/write-client";
-import { STARTUPS_VIEWS_QUERY } from "@/sanity/lib/queries";
+import { getAndIncrementViews } from "@/lib/actions";
 
 const View = ({ id }: { id: string }) => {
     const [totalViews, setTotalViews] = useState<number | null>(null);
@@ -13,18 +11,13 @@ const View = ({ id }: { id: string }) => {
         let ignore = false;
 
         const run = async () => {
-            const { views } = await client
-                .withConfig({ useCdn: false })
-                .fetch(STARTUPS_VIEWS_QUERY, { id });
+            const result = await getAndIncrementViews(id);
 
             if (ignore) return;
-            setTotalViews(views || 0);
 
-            writeClient
-                .patch(id)
-                .set({ views: (views || 0) + 1 })
-                .commit()
-                .catch(console.error);
+            if (result.success) {
+                setTotalViews(result.views);
+            }
         };
 
         run();

@@ -2,16 +2,17 @@
 
 import { useActionState, useState } from "react";
 import { Button } from "./ui/button";
-import { Send } from "lucide-react";
+import { CheckCircle2, Send, XCircle } from "lucide-react";
 import { formSchema } from "@/lib/validation";
 import MDEditor from "@uiw/react-md-editor";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { createPitch } from "@/lib/actions";
 
 const StartupForm = () => {
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [pitch, setPitch] = useState("");
-    // const { toast } = useToast();
     const router = useRouter();
 
     const handleFormSubmit = async (prevState: any, formData: FormData) => {
@@ -26,30 +27,30 @@ const StartupForm = () => {
 
             await formSchema.parseAsync(formValues);
             console.log("form values after z validation:", formValues);
-            // const result = await createIdea(prevState, formData, pitch);
 
-            // console.log("result from startup create:", result);
+            const result = await createPitch(prevState, formData, pitch);
 
-            // if (result.status === "SUCCESS") {
-            //     toast({
-            //         title: "Success",
-            //         description: "Your Startup pitch has been created successfully"
-            //     });
+            console.log("result from startup create:", result);
 
-            //     router.push(`/startup/${result.id}`);
-            // }
+            if (result.status === "SUCCESS") {
+                toast("Success", {
+                    description: "Pitch created successfully",
+                    icon: <CheckCircle2 className="size-5 text-green-500" />,
+                });
 
-            // return result;
+                router.push(`/startup/${result._id}`);
+            }
+
+            return result;
         } catch (err) {
             if (err instanceof z.ZodError) {
                 const fieldErrors = err.flatten().fieldErrors;
                 setErrors(fieldErrors as unknown as Record<string, string>);
 
-                // toast({
-                //     title: "Error",
-                //     description: "Please check your inputs and try again",
-                //     variant: "destructive"
-                // });
+                toast("Error", {
+                    description: "Please check your inputs and try again",
+                    icon: <XCircle className="size-5 text-red-500" />,
+                });
 
                 return {
                     ...prevState,
@@ -58,7 +59,10 @@ const StartupForm = () => {
                 };
             }
 
-            // toast(7
+            toast("Error", {
+                description: "An unknown error occured",
+                icon: <XCircle className="size-5 text-red-500" />,
+            });
 
             return { ...prevState, error: "An error occured", status: "ERROR" };
         }
@@ -135,7 +139,19 @@ const StartupForm = () => {
                 <label htmlFor="link" className="startup-form_label">
                     Pitch
                 </label>
-                <MDEditor value={pitch} onChange={(value) => setPitch(value)} id="pitch" preview="edit" height={300} style={{ borderRadius: 20, overflow: "hidden" }} textareaProps={{ placeholder: "Describe your Idea and what problem it solves"}} previewOptions={{ disallowedElements: ["style"] }} />
+                <MDEditor
+                    value={pitch}
+                    onChange={(value) => setPitch(value as string)}
+                    id="pitch"
+                    preview="edit"
+                    height={300}
+                    style={{ borderRadius: 20, overflow: "hidden" }}
+                    textareaProps={{
+                        placeholder:
+                            "Describe your Idea and what problem it solves",
+                    }}
+                    previewOptions={{ disallowedElements: ["style"] }}
+                />
                 {errors.pitch && (
                     <p className="startup-form_error">{errors.pitch}</p>
                 )}

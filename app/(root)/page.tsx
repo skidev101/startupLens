@@ -20,18 +20,18 @@ export default async function Home({
   // const session = await auth();
   // console.log(session?.id);
 
-  // const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY, params });
+  const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY, params });
 
-  const posts = [{
-    _id: "1",
-    _createdAt: "12-10-2025",
-    views: "42",
-    author: "monaski",
-    title: "startupLens",
-    category: "tech",
-    desription: "a really cool stuff",
-    image: "/logo.png"
-  }]
+  // const posts = [{
+  //   _id: "1",
+  //   _createdAt: "12-10-2025",
+  //   views: "42",
+  //   author: "monaski",
+  //   title: "startupLens",
+  //   category: "tech",
+  //   desription: "a really cool stuff",
+  //   image: "/logo.png"
+  // }]
 
 
   return (
@@ -56,7 +56,7 @@ export default async function Home({
 
         <ul className="mt-7 card_grid">
           {posts?.length > 0 ? (
-            posts.map((post: any) => <StartupCard key={post?._id} post={post} />) // add appropriate type(StartupCardType) after local testing
+            posts.map((post: StartupCardType) => <StartupCard key={post?._id} post={post} />) // add appropriate type(StartupCardType) after local testing
           ) : (
             <p className="no-result">No Startups found</p>
           )}

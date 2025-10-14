@@ -5,7 +5,10 @@ import { redirect } from "next/navigation";
 const page = async () => {
     const session = await auth();
 
-    if (!session) redirect("/")
+    if (!session) {
+      console.log("no active session");
+      redirect("/");
+    }
   return (
     <>
         <section className="blue_container !min-h-230px">
