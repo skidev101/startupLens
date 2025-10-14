@@ -41,7 +41,7 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
 
         <Link href={`/user/${author?._id}`}>
           <Image
-            src={image || "/default-avatar.webp"}
+            src={post?.author?.image || "/default-avatar.webp"}
             alt="placeholder"
             width={48}
             height={48}

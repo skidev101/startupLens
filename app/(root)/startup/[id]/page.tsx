@@ -5,96 +5,98 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import markdownit from "markdown-it"
+import markdownit from "markdown-it";
 import View from "@/components/View";
 import { Skeleton } from "@/components/ui/skeleton";
 
 // export const experimental_ppr = true;
 const md = markdownit();
 
-
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
-  const id = (await params).id;
-  console.log("post id", id)
+    const id = (await params).id;
+    console.log("post id", id);
 
-  const post = await client.fetch(STARTUPS_BY_ID_QUERY, { id });
-  console.log("post:", post);
+    const post = await client.fetch(STARTUPS_BY_ID_QUERY, { id });
+    console.log("post:", post);
 
-  if (!post) return notFound();
+    if (!post) return notFound();
 
-  // const post = {
-  //   _id: "1",
-  //   _createdAt: "12-10-2025",
-  //   views: "42",
-  //   author: "monaski",
-  //   title: "startupLens",
-  //   category: "tech",
-  //   description: "a really cool stuff",
-  //   image: "/logo.png"
-  // };
+    // const post = {
+    //   _id: "1",
+    //   _createdAt: "12-10-2025",
+    //   views: "42",
+    //   author: "monaski",
+    //   title: "startupLens",
+    //   category: "tech",
+    //   description: "a really cool stuff",
+    //   image: "/logo.png"
+    // };
 
-  const parsedContent = md.render(post?.pitch || "");
-  
-  return (
-    <>
-      <section className="blue_container !min-h-[230px]">
-        <p className="tag">{formatDate(post?._createdAt)}</p>
+    const parsedContent = md.render(post?.pitch || "");
 
-        <h1 className="heading">{post.title}</h1>
-        <p className="sub-heading !max-w-5xl">{post.description}</p>
-      </section>
+    return (
+        <>
+            <section className="blue_container !min-h-[230px]">
+                <p className="tag">{formatDate(post?._createdAt)}</p>
 
-      <section className="section_container">
-        <img
-          src={post.image}
-          alt="startup image"
-          className="w-full h-auto lg:max-h-[300px] rounded-xl object-cover"
-        />
+                <h1 className="heading">{post.title}</h1>
+                <p className="sub-heading !max-w-5xl">{post.description}</p>
+            </section>
 
-        <div className="space-y-5 mt-10 max-w-4xl mx-auto">
-          <div className="flex-between gap-5">
-            <Link
-              href={`/user/${post.author?._id}`}
-              className="flex gap-2 items-center mb-3"
-            >
-              <Image
-                src={post.author?.image}
-                alt="avatar"
-                width={64}
-                height={64}
-                className="rounded-full drop-shadow-lg"
-              />
+            <section className="section_container">
+                    <img
+                        src={post.image}
+                        alt="startup image"
+                        className="w-full h-auto object-contain max-h-[500px] rounded-xl"
+                    />
+                
 
-              <div>
-                <p className="text-20-medium">{post.author?.name}</p>
-                <p className="text-16-medium !text-black-300">@{post.author?.username}</p>
-              </div>
-            </Link> 
+                <div className="space-y-5 mt-10 max-w-4xl mx-auto">
+                    <div className="flex-between gap-5">
+                        <Link
+                            href={`/user/${post.author?._id}`}
+                            className="flex gap-2 items-center mb-3"
+                        >
+                            <Image
+                                src={post.author?.image}
+                                alt="avatar"
+                                width={64}
+                                height={64}
+                                className="rounded-full drop-shadow-lg"
+                            />
 
-            <p className="category-tag">{post.category}</p>
-          </div>
+                            <div>
+                                <p className="text-20-medium">
+                                    {post.author?.name}
+                                </p>
+                                <p className="text-16-medium !text-black-300">
+                                    @{post.author?.username}
+                                </p>
+                            </div>
+                        </Link>
 
-          <h3 className="text-30-bold">Pitch Details</h3>
-          {parsedContent ? (
-            <article
-              dangerouslySetInnerHTML={{ __html: parsedContent}}
-              className="prose max-w-4xl font-work-sans break-all"
-             />
-          ) : (
-            <p className="no-result">No details provided</p>
-          )}
+                        <p className="category-tag">{post.category}</p>
+                    </div>
 
-        </div>
+                    <h3 className="text-30-bold">Pitch Details</h3>
+                    {parsedContent ? (
+                        <article
+                            dangerouslySetInnerHTML={{ __html: parsedContent }}
+                            className="prose max-w-4xl font-work-sans break-all"
+                        />
+                    ) : (
+                        <p className="no-result">No details provided</p>
+                    )}
+                </div>
 
-        <hr className="divider" />
+                <hr className="divider" />
+            </section>
 
-      </section>
-
-      <Suspense fallback={<Skeleton className="view_skeleton" />}>
-        <View id={id} />
-      </Suspense>
-    </>
-  );
+            <Suspense fallback={<Skeleton className="view_skeleton" />}>
+                <View id={id} />
+            </Suspense>
+        </>
+    );
 };
 
 export default page;
