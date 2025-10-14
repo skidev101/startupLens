@@ -22,7 +22,7 @@ const Navbar = async () => {
                         <>
                             <Link href="/startup/create">
                                 <span className="max-sm:hidden">Create</span>
-                                <BadgePlus className="size-6 sm:hidden text-red-500" />
+                                <BadgePlus className="size-6 sm:hidden mb-1 " />
                             </Link>
 
                             <form action={handleSignOut}>
