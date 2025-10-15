@@ -27,6 +27,7 @@ export default async function Home({
     prefix: "editor-picks",
   });
 
+  console.log("all startups:", posts);
   console.log("playlists:", playlists);
   const editorPosts = playlists?.select ?? [];
   console.log("editor posts:", editorPosts);
