@@ -35,7 +35,7 @@ const StartupForm = () => {
       if (result.status === "SUCCESS") {
         toast("Success", {
           description: "Pitch created successfully",
-          icon: <CheckCircle2 className="size-5 text-green-500" />,
+          icon: <CheckCircle2 className="w-5 h-5 text-green-500" />,
         });
 
         router.push(`/startup/${result._id}`);

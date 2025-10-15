@@ -6,8 +6,9 @@ const Ping = () => {
       <div className="absolute -left-4 top-1">
         <span className="flex size-[10px]">
           <span className="absolute inline-flex h-full w-full rounded-full animate-ping bg-primary opacity-75">
-            <span className="relative inline-flex size-[10px] rounded-full bg-primary z-10"></span>
-            <span className="relative inline-flex size-[10px] rounded-full bg-amber-500 z-10"></span>
+            <span className="absolute inline-flex h-full w-full rounded-full animate-ping bg-primary opacity-75">
+              <span className="relative inline-flex size-[10px] rounded-full bg-primary z-10"></span>
+            </span>
           </span>
         </span>
       </div>

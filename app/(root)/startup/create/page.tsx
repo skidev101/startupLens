@@ -11,7 +11,7 @@ const page = async () => {
     }
   return (
     <>
-        <section className="blue_container !min-h-230px">
+        <section className="blue_container !min-h-200px">
             <h1 className="heading">Submit your Startup</h1>
         </section>
 

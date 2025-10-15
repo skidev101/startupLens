@@ -36,7 +36,7 @@ const View = ({ id }: { id: string }) => {
             )}
             <p className="view-text">
                 <span className="font-black">
-                    {totalViews === null
+                    {totalViews === null || totalViews === 0
                         ? "No views"
                         : totalViews > 1
                           ? `${totalViews} views`
