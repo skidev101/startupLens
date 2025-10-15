@@ -174,7 +174,7 @@ This project is not currently licensed.
 
 ## Author Info
 **monaski**
-*   Twitter: [twitter.com/monaski_](https://twitter.com/monaski_) (placeholder)
+*   Twitter: [twitter.com/monaski_](https://twitter.com/monaski_)
 
 ---
 
