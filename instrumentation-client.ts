@@ -5,11 +5,14 @@
 import * as Sentry from "@sentry/nextjs";
 
 Sentry.init({
-  dsn: "https://3bf3978552ce9cdd957c57996c1477cd@o4510189593624576.ingest.us.sentry.io/4510189598343168",
+  dsn: "https://791e03b3bf522278969a886eaee53ad1@o4510189593624576.ingest.us.sentry.io/4510189663682560",
 
   // Add optional integrations for additional features
   integrations: [
-    Sentry.replayIntegration(),
+    Sentry.replayIntegration({
+      maskAllText: false,
+      blockAllMedia: false,
+    }),
   ],
 
   // Define how likely traces are sampled. Adjust this value in production, or use tracesSampler for greater control.
