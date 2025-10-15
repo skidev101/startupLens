@@ -1,4 +1,4 @@
-# StartupLens API
+# StartupLens
 
 ## Overview
 StartupLens is a modern platform built with Next.js and TypeScript, designed to empower entrepreneurs to pitch their startup ideas and connect with investors. It features GitHub OAuth authentication via NextAuth, a robust content management system powered by Sanity, and comprehensive error tracking with Sentry. Users can create, view, search for, and discover innovative startup concepts.
