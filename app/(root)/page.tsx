@@ -27,7 +27,9 @@ export default async function Home({
     prefix: "editor-picks",
   });
 
+  console.log("playlists:", playlists);
   const editorPosts = playlists?.select ?? [];
+  console.log("editor posts:", editorPosts);
 
   // const posts = [{
   //   _id: "1",
