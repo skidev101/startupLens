@@ -1,5 +1,5 @@
 import React from "react";
-import { auth, signIn, signOut } from "@/auth";
+import { auth } from "@/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { handleSignIn, handleSignOut } from "@/lib/actions";
@@ -7,8 +7,6 @@ import { BadgePlus, LogOut } from "lucide-react";
 
 const Navbar = async () => {
     const session = await auth();
-    console.log("current user session:", session);
-    console.log("current user session id:", session?.id);
 
     return (
         <header className="px-5 py-3 bg-white text-black shadow-sm font-work-sans">
